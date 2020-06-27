@@ -19,6 +19,9 @@ using DesafioBahia.Services;
 using AutoMapper;
 using DesafioBahia.Domain.Validator;
 using DesafioBahia.Extensions.Validator;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
 
 namespace DesafioBahia
 {
@@ -31,7 +34,6 @@ namespace DesafioBahia
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -51,6 +53,25 @@ namespace DesafioBahia
             services.AddScoped<IOrdemService, OrdemService>();
             services.AddScoped<IOrdemValidator, OrdemValidator>();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "DesafioBahiaAPI",
+                    Version = "v1",
+                    Description = "API do Desafio Bahia",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Lucas Clemente",
+                        Email = "lucas.cmb03@gmail.com",
+                        Url = new Uri("https://github.com/lucascmb/simplesapi")
+                    }
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            });
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -61,6 +82,14 @@ namespace DesafioBahia
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
