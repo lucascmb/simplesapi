@@ -12,5 +12,6 @@ namespace DesafioBahia.Domain.Services
     {
         Task<IEnumerable<Ordem>> ListAsync();
         Task<SaveOrdemResponse> SaveAsync(Ordem ordem);
+        Task<IEnumerable<Ordem>> ByDateRangeListAsync(DateTime dataInicial, DateTime dataFinal);
     }
 }

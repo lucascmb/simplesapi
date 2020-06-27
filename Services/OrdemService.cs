@@ -30,6 +30,11 @@ namespace DesafioBahia.Services
             return await _ordemRepository.ListAsync();
         }
 
+        public async Task<IEnumerable<Ordem>> ByDateRangeListAsync(DateTime dataInicial, DateTime dataFinal)
+        {
+            return await _ordemRepository.ByDateRangeListAsync(dataInicial, dataFinal);
+        }
+
         public async Task<SaveOrdemResponse> SaveAsync(Ordem ordem)
         {
             try

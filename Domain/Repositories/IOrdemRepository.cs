@@ -10,5 +10,7 @@ namespace DesafioBahia.Domain.Repositories
     {
         Task<IEnumerable<Ordem>> ListAsync();
         Task AddAsync(Ordem ordem);
+
+        Task<IEnumerable<Ordem>> ByDateRangeListAsync(DateTime dataInicial, DateTime dataFinal);
     }
 }

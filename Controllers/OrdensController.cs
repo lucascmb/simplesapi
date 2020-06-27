@@ -32,6 +32,15 @@ namespace DesafioBahia.Controllers
             return result;
         }
 
+        [HttpGet("{dataInicial}/{dataFinal}")]
+        public async Task<IEnumerable<OrdemResource>> GetByDataRangeAsync(DateTime dataInicial, DateTime dataFinal)
+        {
+            var ordens = await _ordemService.ByDateRangeListAsync(dataInicial, dataFinal);
+            var result = _mapper.Map<IEnumerable<Ordem>, IEnumerable<OrdemResource>>(ordens);
+
+            return result;
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveOrdemResource resource)
         {

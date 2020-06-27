@@ -41,7 +41,6 @@ namespace DesafioBahia
             services.AddDbContext<DBContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("BahiaDesafioContext"));
             });
-           
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

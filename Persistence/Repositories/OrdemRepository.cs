@@ -36,5 +36,18 @@ namespace DesafioBahia.Persistence.Repositories
             await _context.Ordem.AddAsync(ordem);
         }
 
+        public async Task<IEnumerable<Ordem>> ByDateRangeListAsync(DateTime dataInicial, DateTime dataFinal)
+        {
+            var ordens = _context.Ordem.Where(o => o.Data > dataInicial).Where(o => o.Data <= dataFinal).OrderByDescending(o => o.Data);
+            var ativos = _context.Ativo.ToList();
+
+            foreach(Ordem o in ordens)
+            {
+                o.Ativo = ativos.Where(a => a.Id_ativo == o.Fk_id_ativo).FirstOrDefault();
+            }
+
+            return await ordens.ToListAsync();
+        }
+
     }
 }

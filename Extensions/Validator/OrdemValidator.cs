@@ -23,6 +23,11 @@ namespace DesafioBahia.Extensions.Validator
                 throw new Exception("A classe de negociação escolhida não é válida. Escolha entre Venda ou Compra.");
             }
 
+            if ((ordem.Preco <= 0))
+            {
+                throw new Exception("O preço da ordem deve ser maior do que 0");
+            }
+
             return true;
         }
     }
