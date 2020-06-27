@@ -11,7 +11,7 @@ using DesafioBahia.Extensions;
 
 namespace DesafioBahia.Controllers
 {
-    [Route("ordens")]
+    [Route("DesafioBahiaAPI/ordens")]
     public class OrdensController : Controller
     {
         private readonly IOrdemService _ordemService;
@@ -35,7 +35,7 @@ namespace DesafioBahia.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveOrdemResource resource)
         {
-            if( !ModelState.IsValid)
+            if( !ModelState.IsValid )
             {
                 return BadRequest(ModelState.GetErrorMessages());
             }
@@ -43,7 +43,7 @@ namespace DesafioBahia.Controllers
             var ordem = _mapper.Map<SaveOrdemResource, Ordem>(resource);
             var result = await _ordemService.SaveAsync(ordem);
 
-            if (!result.Success)
+            if ( !result.Success )
             {
                 return BadRequest(result.Message);
             }

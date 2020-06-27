@@ -17,6 +17,8 @@ using DesafioBahia.Domain.Repositories;
 using DesafioBahia.Domain.Services;
 using DesafioBahia.Services;
 using AutoMapper;
+using DesafioBahia.Domain.Validator;
+using DesafioBahia.Extensions.Validator;
 
 namespace DesafioBahia
 {
@@ -37,7 +39,7 @@ namespace DesafioBahia
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<DBContext>(options => {
-                options.UseInMemoryDatabase("bahiadatabase");
+                options.UseSqlServer(Configuration.GetConnectionString("BahiaDesafioContext"));
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -47,10 +49,10 @@ namespace DesafioBahia
 
             services.AddScoped<IOrdemRepository, OrdemRepository>();
             services.AddScoped<IOrdemService, OrdemService>();
+            services.AddScoped<IOrdemValidator, OrdemValidator>();
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

@@ -10,15 +10,18 @@ namespace DesafioBahia.Resources
     public class SaveOrdemResource
     {
         [Required]
-        public float quantidade { get; set; }
+        public double Quantidade { get; set; }
 
         [Required]
-        public float preco { get; set; }
+        public double Preco { get; set; }
 
         [Required]
-        public DateTime data { get; set; }
+        public DateTime Data { get; set; }
 
         [Required]
-        public ClasseNegociacao classe_negociacao { get; set; }
+        public char Classe_negociacao { get; set; }
+
+        [Required]
+        public int Fk_id_ativo { get; set; }
     }
 }

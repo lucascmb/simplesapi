@@ -13,6 +13,7 @@ namespace DesafioBahia.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<Ordem, OrdemResource>();
+            CreateMap<Ativo, AtivoResource>();
         }
     }
 }

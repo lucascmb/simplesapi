@@ -9,8 +9,8 @@ namespace DesafioBahia.Persistence.Context
 {
     public class DBContext : DbContext
     {
-        public DbSet<Ativo> Ativos { get; set; }
-        public DbSet<Ordem> Ordens { get; set; }
+        public DbSet<Ativo> Ativo { get; set; }
+        public DbSet<Ordem> Ordem { get; set; }
 
         public DBContext(DbContextOptions<DBContext> options) : base (options) { }
 
@@ -19,34 +19,25 @@ namespace DesafioBahia.Persistence.Context
 
             base.OnModelCreating(builder);
 
-            builder.Entity<Ativo>().ToTable("Ativos");
+            builder.Entity<Ativo>().ToTable("Ativo");
 
-            builder.Entity<Ativo>().HasKey(p => p.Id);
+            builder.Entity<Ativo>().HasKey(p => p.Id_ativo);
 
-            builder.Entity<Ativo>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Ativo>().Property(p => p.descricao).IsRequired().HasMaxLength(30);
-            builder.Entity<Ativo>().Property(p => p.lote_minimo).IsRequired();
+            builder.Entity<Ativo>().Property(p => p.Id_ativo).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Ativo>().Property(p => p.Descricao).IsRequired().HasMaxLength(30);
+            builder.Entity<Ativo>().Property(p => p.Lote_minimo).IsRequired();
 
-            builder.Entity<Ativo>().HasMany(p => p.Ordens).WithOne(c => c.ativo).HasForeignKey(d => d.id_ativo);
+            builder.Entity<Ativo>().HasMany(p => p.Ordens).WithOne(c => c.Ativo).HasForeignKey(d => d.Fk_id_ativo);
 
 
-            builder.Entity<Ordem>().ToTable("Ordens");
+            builder.Entity<Ordem>().ToTable("Ordem");
 
-            builder.Entity<Ordem>().HasKey(p => p.id);
+            builder.Entity<Ordem>().HasKey(p => p.Id_ordem);
 
-            builder.Entity<Ordem>().Property(p => p.id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Ordem>().Property(p => p.quantidade).IsRequired();
-            builder.Entity<Ordem>().Property(p => p.preco).IsRequired();
-            builder.Entity<Ordem>().Property(p => p.data).IsRequired();
-            builder.Entity<Ordem>().Property(p => p.classe_negociacao).IsRequired();
-
-            builder.Entity<Ativo>().HasData
-            (
-                new Ativo { Id = 1, descricao = "Petrobras", lote_minimo = 100},
-                new Ativo { Id = 2, descricao = "Oi", lote_minimo = 50}
-            );
-
-            this.Database.EnsureCreated();
+            builder.Entity<Ordem>().Property(p => p.Id_ordem).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Ordem>().Property(p => p.Quantidade).IsRequired();
+            builder.Entity<Ordem>().Property(p => p.Preco).IsRequired();
+            builder.Entity<Ordem>().Property(p => p.Data).IsRequired();
 
         }
     }

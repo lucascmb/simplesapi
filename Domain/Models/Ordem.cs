@@ -7,14 +7,14 @@ namespace DesafioBahia.Domain.Models
 {
     public class Ordem
     {
-        public int id { get; set; }
-        public float quantidade { get; set; }
-        public float preco { get; set; }
-        public DateTime data { get; set; }
-        public ClasseNegociacao classe_negociacao { get; set; }
+        public int Id_ordem { get; set; }
+        public double Quantidade { get; set; }
+        public double Preco { get; set; }
+        public DateTime Data { get; set; }
+        public char Classe_negociacao { get; set; }
 
-        public int id_ativo { get; set; }
-        public Ativo ativo { get; set; }
+        public int Fk_id_ativo { get; set; }
+        public Ativo Ativo { get; set; }
 
     }
 }

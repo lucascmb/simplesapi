@@ -1,4 +1,5 @@
-﻿using DesafioBahia.Domain.Models;
+﻿using AutoMapper.Configuration.Conventions;
+using DesafioBahia.Domain.Models;
 using DesafioBahia.Domain.Repositories;
 using DesafioBahia.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -18,12 +19,22 @@ namespace DesafioBahia.Persistence.Repositories
 
         public async Task<IEnumerable<Ordem>> ListAsync()
         {
-            return await _context.Ordens.OrderBy(o => o.data).ToListAsync();
+            var ordens = _context.Ordem.OrderByDescending(o => o.Data);
+            var ativos = _context.Ativo.ToList();
+
+            foreach(Ordem o in ordens)
+            {
+                o.Ativo = ativos.Where(a => a.Id_ativo == o.Fk_id_ativo).FirstOrDefault();
+            }
+
+            return await ordens.ToListAsync();
         }
 
         public async Task AddAsync(Ordem ordem)
         {
-            await _context.Ordens.AddAsync(ordem);
+            ordem.Ativo = _context.Ativo.Where(a => a.Id_ativo == ordem.Fk_id_ativo).FirstOrDefault();
+            await _context.Ordem.AddAsync(ordem);
         }
+
     }
 }
