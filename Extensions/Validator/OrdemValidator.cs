@@ -18,7 +18,7 @@ namespace DesafioBahia.Extensions.Validator
                 throw new Exception("A quantidade escolhida não é múltipla do lote mínimo exigido pelo ativo.");
             }
 
-            if( (ordem.Quantidade) < 0)
+            if( (ordem.Quantidade) <= 0)
             {
                 throw new Exception("A quantidade escolhida deve ser um número positivo, múltiplo do lote mínimo e diferente de zero.");
             }
