@@ -9,10 +9,8 @@ namespace DesafioBahia.Resources
     public class PosicaoAtivoResource
     {
         [Required]
-        public string Descricao { get; set; }
-        [Required]
         public DateTime RefData { get; set; }
         [Required]
-        public double posicao { get; set; }
+        public double Posicao { get; set; }
     }
 }

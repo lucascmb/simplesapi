@@ -13,9 +13,14 @@ namespace DesafioBahia.Extensions.Validator
         {
             var ativo = ordem.Ativo;
 
-            if( ! ((ordem.Quantidade % ativo.Lote_minimo) == 0) )
+            if( ! ((ordem.Quantidade % ativo.Lote_minimo) == 0))
             {
                 throw new Exception("A quantidade escolhida não é múltipla do lote mínimo exigido pelo ativo.");
+            }
+
+            if( (ordem.Quantidade) < 0)
+            {
+                throw new Exception("A quantidade escolhida deve ser um número positivo, múltiplo do lote mínimo e diferente de zero.");
             }
 
             if (! (ordem.Classe_negociacao.Equals('C') || ordem.Classe_negociacao.Equals('V')) )

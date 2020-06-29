@@ -40,7 +40,7 @@ namespace DesafioBahia.Controllers
                 else sum -= o.Quantidade;
             }
 
-            var retorno = new PosicaoAtivoResource { Descricao = "aa", posicao = sum, RefData = data };
+            var retorno = new PosicaoAtivoResource { Posicao = sum, RefData = data };
 
             return retorno;
         }
